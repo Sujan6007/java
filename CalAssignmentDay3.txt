@@ -1,0 +1,137 @@
+package com.company;
+import java.util.Scanner;
+
+public class Cal {
+    int num1 = 0;
+    int num2 = 0;
+    int result = 0;
+    Scanner sc = new Scanner(System.in);
+
+    public double add() {
+        System.out.println("Enter the two numbers");
+        num1 = sc.nextInt();
+        num2 = sc.nextInt();
+        result = num1 + num2;
+        System.out.println(result);
+        return result;
+    }
+    public double sub() {
+        System.out.println("Enter the two numbers");
+        num1 = sc.nextInt();
+        num2 = sc.nextInt();
+        result = num1 - num2;
+        System.out.println(result);
+        return result;
+    }
+    public double mul() {
+        System.out.println("Enter the two numbers");
+        num1 = sc.nextInt();
+        num2 = sc.nextInt();
+        result = num1 * num2;
+        System.out.println(result);
+        return result;
+    }
+    public double div() {
+        System.out.println("Enter the two numbers");
+        num1 = sc.nextInt();
+        num2 = sc.nextInt();
+        result = num1 / num2;
+        System.out.println(result);
+        return result;
+    }
+}
+package com.company;
+
+import java.util.Scanner;
+
+
+public class ExtendedCal extends Cal {
+    int num = 0;
+    int result = 0;
+    Scanner sc = new Scanner(System.in);
+
+    public double EvenOrAdd() {
+        System.out.println("Enter the number");
+        num = sc.nextInt();
+        if (num % 2 == 0)
+            System.out.println("Even");
+        else
+            System.out.println("Odd");
+        return result;
+    }
+
+    public double Prime() {
+        System.out.println("Enter the number");
+        num = sc.nextInt();
+        boolean b = false;
+        for (int i = 2; i <= num; i++) {
+            if (num % i == 0) {
+                b = true;
+                if (!b)
+                    System.out.println("Prime");
+                else
+                    System.out.println("Non Prime");
+            }
+
+        }
+
+        return result;
+    }
+
+    public double Square() {
+        System.out.println("Enter the number");
+        num = sc.nextInt();
+        result = num * num;
+        System.out.println(result);
+        return result;
+
+    }
+}
+package com.company;
+
+import java.util.Scanner;
+
+public class Input extends ExtendedCal {
+    public static void main(String[] args) {
+        Cal c = new Cal();
+        ExtendedCal e = new ExtendedCal();
+        int num1 = 0;
+        int num2 = 0;
+        while (true) {
+            System.out.println("Enter the options : ");
+            System.out.println("1.add 2.sub 3.mul 4.div 5.EvenOrOdd 6.prime 7.square");
+            Scanner sc = new Scanner(System.in);
+            int op = sc.nextInt();
+
+            switch (op) {
+                case 1:
+                    c.add();
+                    break;
+                case 2:
+                    c.sub();
+                    break;
+                case 3:
+                    c.mul();
+                    break;
+                case 4:
+                    c.div();
+                    break;
+                case 5:
+                    e.EvenOrAdd();
+                    break;
+                case 6:
+                    e.Prime();
+                    break;
+                case 7:
+                    e.Square();
+                    break;
+                case 8:
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid Input");
+
+            }
+        }
+
+    }
+}
