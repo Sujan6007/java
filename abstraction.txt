@@ -1,0 +1,92 @@
+package com.training;
+
+import com.company.Cal;
+
+public abstract class Car {
+    abstract void start();
+    abstract void break1();
+    abstract void stop();
+    abstract void speed();
+
+    void move(){
+        System.out.println("car moves");
+    }
+}
+package com.training;
+
+public class BMW extends Car{
+    @Override
+    void start() {
+        System.out.println("BMW is started");
+    }
+    @Override
+    void break1() {
+        System.out.println("BMW contains hydraulic disc break system");
+    }
+    @Override
+    void stop() {
+        System.out.println("BMW stops");
+    }
+    @Override
+    void speed() {
+        System.out.println("BMW moves at the speed of 200km/h");
+    }
+    void windshield(){
+        System.out.println("BMW contains 4 windshield wipers");
+    }
+    void design(){
+        System.out.println("BMW design");
+
+    }
+}
+package com.training;
+
+public class Swift extends Car {
+    @Override
+    void start() {
+        System.out.println("Swift is started");
+    }
+    @Override
+    void break1() {
+        System.out.println("Swift car contains anti-lock breaking system");
+    }
+    @Override
+    void stop() {
+        System.out.println("Swift stops");
+    }
+    @Override
+    void speed() {
+        System.out.println("Swift moves at the speed of 150km/h");
+    }
+    void windshield(){
+        System.out.println("BMW contains 4 windshield wipers");
+    }
+    void design(){
+        System.out.println("swift design");
+    }
+
+}
+package com.training;
+
+public class Main {
+    public static void main(String[] args) {
+        Car obj1 = new BMW();
+        Car obj2 = new Swift();
+        BMW b = new BMW();
+        Swift s = new Swift();
+        obj1.move();
+        obj1.start();
+        obj1.break1();
+        obj1.speed();
+        obj1.stop();
+        b.design();
+        b.windshield();
+
+        obj2.start();
+        obj2.break1();
+        obj2.speed();
+        obj2.stop();
+        s.design();
+        s.windshield();
+    }
+}
