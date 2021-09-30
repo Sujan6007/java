@@ -1,0 +1,109 @@
+package com.training;
+
+public interface Bank {
+    public void rateOfInterst();
+    public void minDeposit();
+}
+package com.training;
+
+public class SBI implements Bank{
+    @Override
+    public void rateOfInterst() {
+        System.out.println("Interest is 7.5%");
+    }
+
+    @Override
+    public void minDeposit() {
+        System.out.println("Minimum amount is 1000");
+    }
+}
+class HDFC implements Bank{
+    @Override
+    public void rateOfInterst() {
+        System.out.println("Interest is 8.5%");
+    }
+
+    @Override
+    public void minDeposit() {
+        System.out.println("Minimum amount is 2000");
+
+    }
+}
+package com.training;
+
+public class Banks {
+    public static void main(String[] args) {
+        SBI obj1 = new SBI();
+        HDFC obj2 = new HDFC();
+        obj1.minDeposit();
+        obj1.rateOfInterst();
+        obj2.minDeposit();
+        obj2.rateOfInterst();
+    }
+}
+package com.company;
+
+public interface Calculate1 {
+    void add();
+    void sub();
+}
+package com.company;
+
+public interface Calculate2 {
+    void mul();
+    void div();
+}
+package com.company;
+
+public class Calculator3 implements Calculate1,Calculate2{
+
+    @Override
+    public void add() {
+        int a, b, c;
+        a=10;
+        b=5;
+        c= a + b;
+        System.out.println("Addition :" + c);
+    }
+    @Override
+    public void sub() {
+        int a, b, c;
+        a=10;
+        b=5;
+        c= a - b;
+        System.out.println("Subtraction :" + c);
+
+    }
+
+    @Override
+    public void mul() {
+        int a, b, c;
+        a=10;
+        b=5;
+        c= a * b;
+        System.out.println("Multiplication :" + c);
+
+    }
+
+    @Override
+    public void div() {
+        int a, b, c;
+        a=10;
+        b=5;
+        c= a / b;
+        System.out.println("Division :" + c);
+
+    }
+}
+package com.company;
+
+public class MainCalc {
+    public static void main(String[] args) {
+        Calculator3 obj = new Calculator3();
+        obj.add();
+        obj.sub();
+        obj.mul();
+        obj.div();
+    }
+
+}
