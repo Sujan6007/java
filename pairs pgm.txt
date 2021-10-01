@@ -1,0 +1,30 @@
+package training1.com;
+import java.lang.Exception;
+import java.util.Scanner;
+
+public class Pair {
+    public static void main(String[] args) {
+        int count = 0;
+       // int n = 0;
+        int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the integer");
+        int n = sc.nextInt();
+        try{
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    System.out.print("(" + arr[i] + ", " + arr[j] + ")" + ", \n");
+                    count++;
+
+                }
+            }
+    }
+        catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Out of bound");
+        }
+        System.out.println("Count " + count);
+    }
+}
+
+
+
