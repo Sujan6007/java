@@ -1,0 +1,16 @@
+package training1.com;
+
+public class Demo1 {
+    public static void main(String[] args) {
+
+        String p1 = "1000";
+        String p2 = "1000";
+        int p3 = Integer.valueOf(p1) + Integer.valueOf(p2);
+        System.out.println(p3);
+        String p4 = "10000.00";
+        String p5 = "10000.00";
+        double p6 = Double.parseDouble(p4)+Double.parseDouble(p5);
+        System.out.println(p6);
+
+    }
+}
