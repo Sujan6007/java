@@ -49,10 +49,26 @@ public void book(){
         System.out.println("Enter the id");
         String id = sc.next();
 //        user.get(id);
-        HashMap userInfo = user.get(id);
-        if(!userInfo.isEmpty()){
-        System.out.println("name = "+userInfo.get("name"));
-        System.out.println("From = "+userInfo.get("from"));
-        System.out.println("To = "+userInfo.get("to"));
+        if (user.containsKey(id)) {
+            HashMap userInfo = user.get(id);
+            if (!userInfo.isEmpty()) {
+                System.out.println("name = " + userInfo.get("name"));
+                System.out.println("From = " + userInfo.get("from"));
+                System.out.println("To = " + userInfo.get("to"));
+            }
+        } else
+            System.out.println("Enter proper id");
+    }
+public void remove(){
+    System.out.println("Enter the id");
+    String id = sc.next();
+    user.remove(id);
+    }
+
+    public static void main(String[] args) {
+        Redbus obj = new Redbus();
+        obj.option();
     }
 }
+
+       
