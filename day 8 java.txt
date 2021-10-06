@@ -1,0 +1,151 @@
+Java I/O -
+java.io - contains all the classes required for i/p and o/p operations
+-file handling
+
+stream-continuos flow of data
+1 System.out - standard o/p stream
+2 System.in - standard i/p stream
+3 System.err - standard error stream
+
+Output stream- write the data
+Input stream - reading input
+
+
+Output stream----
+//public void write(int) throws IOException
+-it is used to write a int to current o/p string
+//public void write(byte[]) throws IOException
+-it is used to write a an array of byte to ----
+//public void flush() throws IOException
+-flushes o/p stream
+//public void close() throws IOException
+
+Input stream-----
+//public abstract int read() throws IOException
+-read the next byte of data from i/p stream 
+and return -1 at the end of stream
+//public abstract int available() throws IOException
+-return the no. of bytes that can read from i/p stream
+//public abstract int close() throws IOException
+-closes the i/p stream
+
+Output stream -
+1 FileOutputStream class 
+- if we want to write primitive values
+//public class FileOutputStream extends OutputStream
+
+//finalize() - used to clean up the conection
+//write(byte[] ary) - used to write ary.length bytes to array file
+//write(byte[] ary,int off,int len) 
+write(byte[] ary,int 3,int 6) 
+//write(int b) - used to write specified no. of bytes
+//FileChannel getChannel() - used to return file channel object
+//
+void close()
+
+getBytes - convrt string to byte array
+
+InputStream-
+1 FileInputStream class - used to read byte oriented data(eg . img,audio, video)
+Methods:
+//available() - return an estimated no. of bytes that is read from i/p stream
+//int read() - read a byte data from i/p stream
+//int read(byte[] arr,int off,int len) - used to read arr.length bytes from fileinputstream
+//skip(long a)- 
+//finalize()-used to ensure that close method is called when there is no ref to fileInput stream
+//void cose()
+
+BufferedOutputStream--
+It intrnally uses buffer to store the data
+It makes performance faster
+
+public class BufferedOutputStream extends FilterOutputStream
+
+methods--
+write(int a) - 
+write(byte[] a,int start,int end)-
+flush()-
+
+ByteArrayOutputStream- to write common data into multiple files, data is written into byte array
+	It holds a cpy of data & forwarded to streams
+ByteArrayInputStream-
+
+FilterOutputStream - Subclass of bufferedOutputSStream and DataOutputStream
+Dataoutputstream is used to read primitive datatypes
+
+File Permission-
+2 types of path - 1 C:\\IO\\-  :this indicates that permission associated with only sub directory
+		  2 C:\\IO\\* :this indicates that permission is associated with all directories
+
+public class FilePermission extends Permission
+
+/Writer -  abstract class  , writer character to character
+
+/Reader - it reads character to character
+
+/Scanner- java.util --- read inputs from keyboard
+---breaks the input into tokens using delimitter(whitespace)
+---widely used to parse text strings and primitive types
+
+public class Scanner extends Object
+
+J unit - is used for testing
+Maven -
+API
+dependency - libraries
+Assertions -check condition
+
+@Test
+@DisplayName
+@BeforeAll - object created before test
+@BeforeEach - Individual test cases
+@AfterAll - it executed after all testcases
+@AfterEach
+@RepeatedTest(5) - 5 times it repeats the test
+
+
+
+
+import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class ContactTest {​​​​​​​
+    Contact obj;
+    
+    @BeforeEach
+    public void setup(){​​​​​​​
+        obj = new Contact();
+    }​​​​​​​
+    @Test
+    @DisplayName("Firstname is not storing")
+    @RepeatedTest(5)
+    void setFirstName() {​​​​​​​
+        obj.setFirstName("hemanth");
+        Assertions.assertFalse(obj.getFirstName().isEmpty());
+    }​​​​​​​
+
+//condition
+    @Test
+    void setLastName() {​​​​​​​
+        obj.setLastName("hemanth");
+        Assertions.assertFalse(obj.getLastName().isEmpty());
+    }​​​​​​​
+
+    @Test
+    void setPhoneNumber() {​​​​​​​
+        obj.setPhoneNumber("hemanth");
+        Assertions.assertFalse(obj.getPhoneNumber().isEmpty());
+    }​​​​​​​
+
+
+}​​​​​​​
+
+
+
+
+
+
+
+
+
