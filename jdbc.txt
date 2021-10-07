@@ -1,0 +1,35 @@
+Data privacy, Information security, License management awareness--
+
+Jdbc basics-
+JDBC API is used to store tha data in realational data base memory
+Java database connectivity
+
+
+[15:32] Mythili
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class JdbcConnection {​​​​​
+    public static void main(String[] args){​​​​​
+        try {​​​​​
+            String addr="jdbc:mysql://localhost:3306/jdbc_demo";
+            String username="root";
+            String password="root";
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con= DriverManager.getConnection(addr,username,password);
+            System.out.println("connection is established");
+        }​​​​​
+        catch (ClassNotFoundException e){​​​​​
+
+        }​​​​​
+        catch (SQLException e){​​​​​
+
+        }​​​​​
+
+    }​​​​​
+
+}​​​​​
+
+
+
