@@ -1,0 +1,502 @@
+import java.sql.*;
+import java.util.*;
+
+public class Main implements MainInter,UserInter,cartInter
+{
+   private static Connection con;
+    private static Statement stm;
+    private static ResultSet res;
+    static Scanner sc=new Scanner(System.in);
+
+    //Bookstore class
+    public static void insert() throws SQLException
+    {
+        //insert
+            Scanner sc = new Scanner(System.in);
+            System.out.println("enter book name: ");
+            String bookname = sc.next();
+            System.out.println("enter book price: ");
+            float price = sc.nextFloat();
+            System.out.println("enter number of copies: ");
+            int copies = sc.nextInt();
+            System.out.println("enter year of publish: ");
+            int publishyear = sc.nextInt();
+            System.out.println("enter author name: ");
+            String author = sc.next();
+            String sql = "insert into BookStoreTable values(?,?,?,?,?)";
+            PreparedStatement ptsm = con.prepareStatement(sql);
+            ptsm.setString(1,bookname);
+            ptsm.setFloat(2,price);
+            ptsm.setInt(3,copies);
+            ptsm.setString(4,author);
+            ptsm.setInt(5,publishyear);
+            int i=ptsm.executeUpdate();
+        if (i == 0) {
+            System.out.println("Enter the correct bookname");
+        }
+        else
+        {
+            System.out.println("Book details are inserted ");
+        }
+
+    }
+    public static void delete() throws SQLException
+    {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("enter bookname u wanted to delete:");
+            String bookname = sc.next();
+            String sql1 = "delete from BookStoreTable where bookname='" + bookname + "'";
+            int status1=stm.executeUpdate(sql1);
+        if (status1== 0) {
+            System.out.println("Enter the valid bookname to be deleted");
+        }
+        else
+        {
+            System.out.println("Book details are deleted ");
+        }
+    }
+
+    public static void display() throws SQLException
+    {
+            Scanner sc = new Scanner(System.in);
+           // System.out.println("enter bookname u wanted to display:");
+           // String bookname = sc.next();
+            String sql2="select *from bookstoreTable";
+            ResultSet res=stm.executeQuery(sql2);
+            while(res.next())
+            {
+                System.out.println("bookname:"+ res.getString(1) + "price :" + res.getFloat(2) + "copies :" + res.getString(3) + "author :" + res.getString(4) + "Publishyear :" + res.getInt(5));;
+            }
+
+    }
+    public static void update() throws SQLException
+    {
+            Scanner sc=new Scanner(System.in);
+            System.out.println("enter the bookname");
+            String bookname = sc.next();
+            System.out.println("enter the current author name");
+            String current_author = sc.next();
+            System.out.println("enter the author name which you want to update");
+            String prev_author = sc.next();
+            String sql3 = "update BookStoreTable set author=? where author=? and bookname='" + bookname + "'";
+            PreparedStatement pstm = con.prepareStatement(sql3);
+            pstm.setString(1, prev_author);
+            pstm.setString(2, current_author);
+            int status = pstm.executeUpdate();
+            if (status == 0) {
+                System.out.println("Enter the correct bookname");
+            }
+            else
+            {
+                System.out.println("Book details are updated ");
+            }
+
+    }
+
+    //User class
+    public static  void adduser() throws SQLException
+    {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("enter userid: ");
+            int userid = sc.nextInt();
+            System.out.println("enter username: ");
+            String username = sc.next();
+            System.out.println("enter password: ");
+            String password = sc.next();
+            System.out.println("enter place: ");
+            String place = sc.next();
+            String sql3 = "insert into UserTable values(?,?,?,?)";
+            PreparedStatement ptsm = con.prepareStatement(sql3);
+
+            ptsm.setInt(1,userid);
+            ptsm.setString(2,username);
+            ptsm.setString(3,password);
+            ptsm.setString(4,place);
+            int w=ptsm.executeUpdate();
+            if(w==0)
+            {
+                System.out.println("enter valid user details");
+            }
+            System.out.println("User is added successfully");
+
+    }
+    public static void deleteuser() throws SQLException
+    {
+
+            Scanner sc = new Scanner(System.in);
+            System.out.println("enter userid u wanted to delete:");
+            int userid = sc.nextInt();
+            String sql4 = "delete from UserTable where userid='" + userid + "'";
+            int r11=stm.executeUpdate(sql4);
+            if(r11==0)
+            {
+                System.out.println("enter valid userid");
+            }
+            else
+            {
+                System.out.println(userid +" deleted successfully");
+            }
+    }
+    public static void displayuser() throws SQLException
+    {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("enter userid u wanted to displayed:");
+            int userid = sc.nextInt();
+            String sql5="select *from UserTable where userid='" +userid+"'";
+            ResultSet res=stm.executeQuery(sql5);
+            while(res.next())
+            {
+                System.out.println("userid:"+ res.getInt(1) + "username :" + res.getString(2) + "password :" + res.getString(3) + "place :" + res.getString(4));;
+            }
+
+    }
+    public static void updateuser() throws SQLException
+    {
+            Scanner sc=new Scanner(System.in);
+            System.out.println("enter the userid");
+            int userid = sc.nextInt();
+            System.out.println("enter the old password");
+            String current_password = sc.next();
+            System.out.println("enter the new password which you want to update");
+            String pri_password = sc.next();
+            String sql3 = "update UserTable set password=? where password=? and userid=" + userid + "";
+            PreparedStatement pstm = con.prepareStatement(sql3);
+            pstm.setString(1, pri_password);
+            pstm.setString(2, current_password);
+            int status = pstm.executeUpdate();
+            if (status == 0) {
+                System.out.println("Enter the name which is present in the table");
+            }
+            else
+            {
+                System.out.println("user details updated");
+            }
+
+    }
+    //Cart class
+    public static void addbooktocart() throws SQLException {
+
+        int copies = 0;
+        System.out.println("enter userid");
+        int userid = sc.nextInt();
+        System.out.println("enter bookname which u wanted to add to cart");
+        String bookname = sc.next();
+        System.out.println("Enter no. of copies to be added to cart");
+        int addCopies = sc.nextInt();
+        String sql90 = "select copies from BookStoreTable where bookname='" + bookname + "'";
+        ResultSet res_copies = stm.executeQuery(sql90);
+        while (res_copies.next()) {
+            copies = res_copies.getInt(1);
+        }
+        if (copies>= addCopies) {
+            String sql41 = "insert into cartTable values(" + userid + ",'" + bookname + "'," + addCopies + ")";
+            int status = stm.executeUpdate(sql41);
+            copies=copies-addCopies;
+            if (status == 0) {
+                System.out.println("PLEASE ENTER DIFFERNET OOK NAME");
+            }
+            else {
+                System.out.println("YOUR CART IS UPDATED");
+            }
+            if (status > 0) {
+                if (copies > 0) {
+                    String decrement_copies = "update BookStoreTable set copies=" + copies + " where bookname='" + bookname + "'";
+                    stm.executeUpdate(decrement_copies);
+                } else {
+                    String sql42 = "delete from book where bookname='" + bookname + "'";
+                    stm.executeUpdate(sql42);
+                }
+            }
+        }
+        else {
+            System.out.println("BOOK IS NOT PRESENT IN THE TABLE");
+        }
+
+
+    }
+    public static void displaybookfromcart() throws SQLException
+    {
+        System.out.println("PLEASE ENTER USER ID TO RETRIVE THE DATA");
+        int userid=sc.nextInt();
+        String sql43="select * from cartTable where userid="+userid+"";
+        ResultSet res=stm.executeQuery(sql43);
+        System.out.println("data is displayed");
+        while (res.next())
+        {
+            System.out.println(" userid: "+res.getInt(1)+"bookname: "+res.getString(2)+"copies: "+res.getInt(3));
+        }
+
+    }
+    public static void deletebookfromcart() throws SQLException
+    {
+        int copies=0;
+        int  bookCopies=0;
+        System.out.println("PLEASE ENTER USER ID");
+        int userid=sc.nextInt();
+        System.out.println("PLEASE ENTER BOOK NAME WHICH YOU WISH TO Delete");
+        String bookname=sc.next();
+        String sql433="select copies from cartTable where userid="+userid+" and bookname='"+bookname+"'";
+        ResultSet res=stm.executeQuery(sql433);
+        while (res.next()){
+            copies=copies+res.getInt(1);
+        }
+        String sql43="delete from cartTable where userid="+userid+" and bookname='"+bookname+"'";
+        int status=stm.executeUpdate(sql43);
+        if(status>0){
+            System.out.println("Deletion done in cart");
+            String checkCopiesInBook="select copies from BookStoreTable where bookname='"+bookname+"'";
+            ResultSet resCheck=stm.executeQuery(checkCopiesInBook);
+            while (resCheck.next()){
+                bookCopies=resCheck.getInt(1);
+            }
+            bookCopies=bookCopies+copies;
+
+            String sql44="update BookStoreTable set copies="+bookCopies+" where bookName='"+bookname+"'";
+            stm.executeUpdate(sql44);
+        }
+        else {
+            System.out.println("Book not present in cart");
+        }
+    }
+    public static int checkuserinlist() throws SQLException
+    {
+        int count=0;
+        System.out.println("PLEASE ENTER USER ID TO CONFIRM THE USER :");
+        int userid=sc.nextInt();
+        String sql51="select username from UserTable where userid="+userid+"";
+        ResultSet res=stm.executeQuery(sql51);
+        while (res.next()){
+            count++;
+        }
+        if(count>=1){
+            System.out.println("THANK YOU USER IS VALIDATED");
+        }
+        return count;
+    }
+
+    public static void main(String args[]) throws SQLException {
+        try {
+            String addr = "jdbc:mysql://localhost:3306/BookStore";
+            String username = "root";
+            String password = "root";
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(addr, username, password);
+            System.out.println("connection is established");
+            stm = con.createStatement();
+            Optionsclass o=new Optionsclass();
+            o.option();
+        } catch (ClassNotFoundException exe) {
+            System.out.println(exe);
+        } catch (SQLException exe) {
+            System.out.println(exe);
+        }
+    }
+
+}
+
+
+
+
+------------------optionclass------------------
+import java.sql.SQLException;
+import java.util.Scanner;
+
+public class Optionsclass
+{
+    public static void option() throws SQLException
+    {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.println("enter the options");
+            System.out.println("1.bookstore 2.user 3.cart 4.exit");
+            int i = sc.nextInt();
+            switch (i) {
+                case 1:
+                    bookOperation();
+                    break;
+                case 2:
+                    userOperation();
+                    break;
+                case 3:
+                    cartOperation();
+                case 4:
+                    System.exit(0);
+
+            }
+        }
+    }
+
+    public static void bookOperation() throws SQLException
+    {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.println("enter the options");
+            System.out.println("1.Insert 2.Delete 3.Update 4.display 5.exit");
+            int j = sc.nextInt();
+            switch (j) {
+                case 1:
+                    Main.insert();
+                    break;
+                case 2:
+                    Main.delete();
+                    break;
+                case 3:
+                    Main.update();
+                    break;
+                case 4:
+                    Main.display();
+                    break;
+                case 5:
+                    option();
+
+            }
+        }
+
+    }
+    public static void userOperation() throws SQLException
+    {
+        while (true) {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("enter the options");
+            System.out.println("1.adduser 2.Deleteuser 3.Updateuser 4.displayuser 5.exit");
+            int k = sc.nextInt();
+            switch (k) {
+                case 1:
+                    Main.adduser();
+                    break;
+                case 2:
+                    Main.deleteuser();
+                    break;
+                case 3:
+                    Main.updateuser();
+                    break;
+                case 4:
+                    Main.displayuser();
+                    break;
+                case 5:
+                    option();
+
+            }
+        }
+
+    }
+    public static void cartOperation() throws SQLException
+    {
+        while (true) {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("enter the options");
+            System.out.println("1.addbooktocart 2.Deletebookfromcart 3.displaybookfromcart 4.checkuserinlist 5.exit");
+            int l = sc.nextInt();
+            switch (l) {
+                case 1:
+                    Main.addbooktocart();
+                    break;
+                case 2:
+                    Main.deletebookfromcart();
+                    break;
+                case 3:
+                    Main.displaybookfromcart();
+                    break;
+                case 4:
+                    Main.checkuserinlist();
+                    break;
+                case 5:
+                    option();
+
+            }
+        }
+    }
+
+}
+
+-----------------------------interfaces--------------------
+public interface bookStoreInter
+{
+    public void insert();
+    public void delete();
+    public void display();
+    public void update();
+
+}
+
+
+import java.sql.SQLException;
+public interface UserInter
+{
+    public static void adduser() throws SQLException
+    {
+
+    }
+    public static void deleteuser() throws SQLException
+    {
+
+    }
+    public static void updateuser() throws SQLException
+    {
+
+    }
+    public static void displayuser() throws SQLException
+    {
+
+    }
+}
+
+
+
+import java.sql.SQLException;
+
+public interface cartInter
+{
+    public static void addbooktocart() throws SQLException {}
+    public static void deletebookfromcart()throws SQLException{}
+    public static void displaybookfromcart()throws SQLException{}
+    public static void checkuserinlist()throws SQLException{}
+}
+
+
+
+------------------------database-------------------
+create database BookStore;
+
+use BookStore;
+
+create table BookStoreTable(
+
+bookname varchar(20) primary key,
+price float ,
+copies int,
+author varchar(20),
+publishyear int
+
+);
+
+
+
+create table UserTable(
+
+userid int primary key,
+username varchar(20) ,
+password varchar(20),
+place varchar(20)
+);
+
+
+
+
+create table cartTable(
+
+userid int primary key ,
+bookname varchar(20) ,
+copies int ,
+
+constraint FK_ORDER foreign key (userid) references UserTable(userid),
+
+constraint FK_ORDER1 foreign key (bookname) references BookStoreTable(bookname)
+);
+
+
+select *from BookStoreTable;
+
+select *from UserTable;
+
+select *from cartTable;
